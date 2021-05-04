@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  .col-4
+    h3 Should You Ride?
+    h4.text-muted Stupid question, YES!
+    p Seriously though, before you ride you should consider not only the risks, 
+      | but also the remarks to being a safe and confident rider while being on the public road.
+  .col-8
+    if weather
+      .weather
+        h1 City: #{weather.name}
+        - var temp = weather.main.temp;
+        if temp <= 36
+          h2.temp-freezing Temp: #{temp}°F
+        else if temp >= 37 && temp <= 50
+          h2.temp-cold Temp: #{temp}°F
+        else if temp >= 51 && temp <= 60
+          h2.temp-lukewarm Temp: #{temp}°F
+        else if temp >= 61 && temp <= 70
+          h2.temp-warm Temp: #{temp}°F
+        else if temp >= 71 && temp <= 90
+          h2.temp-hot Temp: #{temp}°F
+        else if temp >= 91
+          h2.temp-scorching Temp: #{temp}°F
+        h3 Feels like: #{weather.main.feels_like}°F
+        h3 Humidity: #{weather.main.humidity}%
+        h3 Clouds: #{weather.weather[0].description}
+        h3 Wind Speed: #{weather.wind.speed} mph
+        -
+          var date = Math.floor(new Date().getTime()/1000.0);
+          console.log(date);
+          console.log(weather.sys.sunset);
+        h3 The sun 
+          if weather.sys.sunset < date
+            | has set.
+          else
+            | sets in #{new Date(Math.round((weather.sys.sunset - date) / 60) * 1000).toISOString().substr(15, 4)}
+    else
+      h3.text-warning= message 
+    form(method="GET" action='').col-sm-3
+      input.form-control.form-control-dark(type="search", placeholder="Enter Zipcode..." id="zipcode" name="zipcode")
+    if error
+      h3.text-warning= error

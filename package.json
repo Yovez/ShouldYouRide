@@ -1,0 +1,29 @@
+{
+  "name": "shouldyouride",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www",
+    "startsass": "sass --watch sass:public/stylesheets",
+    "startexpress": "SET DEBUG=shouldyouride:* | npm run devstart"
+  },
+  "dependencies": {
+    "async": "^3.2.0",
+    "bootstrap": "^5.0.0-beta3",
+    "bootstrap-icons": "^1.4.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^5.12.7",
+    "morgan": "~1.9.1",
+    "node-fetch": "^2.6.1",
+    "node-sass-middleware": "0.11.0",
+    "pug": "2.0.0-beta11",
+    "zipcodes": "^8.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

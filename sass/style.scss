@@ -1,0 +1,28 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.weather {
+  h1 {
+    color: green;
+  }
+
+  @mixin define-temp($name, $color) {
+    h2.temp-#{$name} {
+      color: #{$color};
+    }
+  }
+
+  @include define-temp('freezing', aqua);
+  @include define-temp('cold', cornflowerblue);
+  @include define-temp('lukewarm', darksalmon);
+  @include define-temp('warm', coral);
+  @include define-temp('hot', darkred);
+  @include define-temp('scorching', red);
+
+  margin: 5px;
+  padding: 10px;
+}
