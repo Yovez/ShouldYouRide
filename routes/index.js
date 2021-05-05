@@ -34,7 +34,6 @@ router.get('/', function (req, res, next) {
         return res.render('index', { error: err });
       }
       if (results) {
-        console.log(results[0]);
         if (results[0].cod === "404") {
           return res.render('index', { message: "The Zipcode of " + zipcode + " is not valid! Please enter a valid USA Zipcode." })
         }

@@ -13,15 +13,15 @@ block content
         - var temp = weather.main.temp;
         if temp <= 36
           h2.temp-freezing Temp: #{temp}°F
-        else if temp >= 37 && temp <= 50
+        else if temp >= 36 && temp <= 50
           h2.temp-cold Temp: #{temp}°F
-        else if temp >= 51 && temp <= 60
+        else if temp >= 50 && temp <= 60
           h2.temp-lukewarm Temp: #{temp}°F
-        else if temp >= 61 && temp <= 70
+        else if temp >= 60 && temp <= 70
           h2.temp-warm Temp: #{temp}°F
-        else if temp >= 71 && temp <= 90
+        else if temp >= 70 && temp <= 90
           h2.temp-hot Temp: #{temp}°F
-        else if temp >= 91
+        else if temp >= 90
           h2.temp-scorching Temp: #{temp}°F
         h3 Feels like: #{weather.main.feels_like}°F
         h3 Humidity: #{weather.main.humidity}%
@@ -29,8 +29,6 @@ block content
         h3 Wind Speed: #{weather.wind.speed} mph
         -
           var date = Math.floor(new Date().getTime()/1000.0);
-          console.log(date);
-          console.log(weather.sys.sunset);
         h3 The sun 
           if weather.sys.sunset < date
             | has set.
