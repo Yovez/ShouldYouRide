@@ -5,9 +5,37 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+#map {
+  height: 400px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.bg-darkest {
+  background-color: #1c1c1c;
+}
+
+.bg-darker {
+  background-color: #262626;
+}
+
+.bg-prettydark {
+  background-color: #363636;
+}
+
 .weather {
+  .title {
+    color: lightblue;
+  }
+
   h1 {
     color: green;
+  }
+
+  .hourly {
+    font-size: 24px;
   }
 
   @mixin define-temp($name, $color) {
@@ -23,6 +51,7 @@ body {
   @include define-temp('hot', darkred);
   @include define-temp('scorching', red);
 
+  text-transform: capitalize;
   margin: 5px;
   padding: 10px;
 }

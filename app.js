@@ -38,6 +38,6 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-mongoose.connect('mongodb+srv://yovez:NCqt!vZWcpPX76f@cluster0.u6hxz.mongodb.net/should_you_ride?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb+srv://yovez:NCqt!vZWcpPX76f@cluster0.u6hxz.mongodb.net/should_you_ride?retryWrites=true&w=majority',{ useNewUrlParser: true, useUnifiedTopology: true });
 
 module.exports = app;
