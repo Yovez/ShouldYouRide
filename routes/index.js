@@ -9,15 +9,14 @@ router.get('/', function (req, res, next) {
   var lat = 0;
   var lon = 0;
   const nav = new Navigator();
-  if ('geolocation' in nav) {
-    nav.geolocation.getCurrentPosition((success, error) => {
-      if (error) console.log(error);
-      if (success) {
-        lat = success.latitude;
-        lon = success.longitude;
-      }
-    });
-  }
+  nav.geolocation.getCurrentPosition((success, error) => {
+    console.log('tried to get location')
+    if (error) console.log(error);
+    if (success) {
+      lat = success.latitude;
+      lon = success.longitude;
+    }
+  });
   console.log("Lat: " + lat + " - Lon: " + lon);
   async.series(
     [
