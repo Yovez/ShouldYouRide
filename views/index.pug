@@ -22,8 +22,10 @@ block content
       .col-4
         .weather.border.border-warning.rounded.p-3.bg-darker
           h1.title Current Weather: 
-            br 
-            | #{weather.lat} - #{weather.lon}
+          h2.text-secondary#time
+          script.
+            var time = new Date().toLocaleString('en-US', {timeZone: weather.timezone});
+            document.getElementById('time').innerHTML = time;
           h2.capitalize #{weather.current.weather[0].description}
           - var temp = weather.current.temp;
           if temp <= 36
@@ -41,8 +43,34 @@ block content
           h3.color-red Feels like: #{weather.current.feels_like}°F
           h3 Humidity: #{weather.current.humidity}%
           h3 Wind Speed: #{weather.current.wind_speed} mph
-          - var date = Math.floor(new Date().getTime()/1000.0);
-          h3 The sun sets at #{new Date(Math.round(weather.current.sunset) * 1000).toLocaleString('en-US', {timeZone: weather.timezone}).substr(10, 11)}
+          -
+            var date = new Date(Math.round(weather.current.sunset) * 1000).toLocaleString('en-US', {timeZone: weather.timezone});
+            var string = date.substr(date.lastIndexOf(",") + 1);
+          h3 The sun sets at #{string}
+        .border.border-danger.my-3.p-3.rounded.bg-darker
+          h1 Wind Chill Chart
+          h6.text-secondary A useful chart to calculate the wind chill relation to the temperature outside and how fast you're going
+          table.table.table-secondary.table-hover
+            thead
+              th(scope="col") MPH
+              each temp in [30, 35, 40, 45, 50, 55, 60]
+                th(scope="col") #{temp}°F
+            tbody
+              each speed in [25, 35, 45, 50, 55, 60, 70, 80, 90, 100, 120]
+                tr
+                  th(scope="row") #{speed}
+                  each temp in [30, 35, 40, 45, 50, 55, 60]
+                    td #{Math.round(35.74 + (0.6215 * temp) - 35.75 * (Math.pow(speed, 0.16)) + (0.4275 * temp * (Math.pow(speed, 0.16))))}°F
+      .col-4
+        .weather.border.border-info.rounded.p-3.bg-darker
+          h1 Next 12 hours
+          h4.text-secondary (Hover them for more info)
+          - var counter = 0;
+          each item in weather.hourly
+            if counter < 12
+              - var time = new Date(Math.round(item.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone}).substr(10, 11);
+              h2.display-6.hourly(data-bs-toggle="tooltip" data-bs-placement="right" title="Feels Like: " + item.feels_like + "°F\nHumidity: " + item.humidity + "%\nWind Speed: " + item.wind_speed + " mph\nRain: " + item.pop + "%") At #{time} it'll be #{item.temp}°F
+              - counter++;
         .border.border-danger.my-3.p-3.rounded.bg-darker.traffic
           h1 Traffic Conditions
           span.text-secondary A traffic heat map for your current area
@@ -68,16 +96,6 @@ block content
               const trafficLayer = new google.maps.TrafficLayer();
               trafficLayer.setMap(map);
             }
-      .col-4
-        .weather.border.border-info.rounded.p-3.bg-darker
-          h1 Next 12 hours
-          h4.text-secondary (Hover them for more info)
-          - var counter = 0;
-          each item in weather.hourly
-            if counter < 12
-              - var time = new Date(Math.round(item.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone}).substr(10, 11);
-              h2.display-6.hourly(data-bs-toggle="tooltip" data-bs-placement="right" title="Feels Like: " + item.feels_like + "°F\nHumidity: " + item.humidity + "%\nWind Speed: " + item.wind_speed + " mph\nRain: " + item.pop + "%") At #{time} it'll be #{item.temp}°F
-              - counter++;
     else
       h3.text-warning= message
     if error
