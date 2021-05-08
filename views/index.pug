@@ -76,7 +76,7 @@ block content
           each item in weather.hourly
             if counter < 12
               - var time = new Date(Math.round(item.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone}).substr(10, 11);
-              h2.display-6.hourly(data-bs-toggle="tooltip" data-bs-placement="right" title="Feels Like: " + item.feels_like + "°F\nHumidity: " + item.humidity + "%\nRain: " + item.pop + "%") At #{time} it'll be #{item.temp}°F
+              h2.display-6.hourly(data-bs-toggle="tooltip" data-bs-placement="right" title="Feels Like: " + item.feels_like + "°F\nHumidity: " + item.humidity + "%\nWind Speed: " + item.wind_speed + " mph\nRain: " + item.pop + "%") At #{time} it'll be #{item.temp}°F
               - counter++;
     else
       h3.text-warning= message
