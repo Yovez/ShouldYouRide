@@ -42,7 +42,14 @@ block content
             h2.temp-scorching Temp: #{temp}°F (Scorching)
           h3.color-red Feels like: #{weather.current.feels_like}°F
           h3 Humidity: #{weather.current.humidity}%
-          h3 Wind Speed: #{weather.current.wind_speed} mph
+          -
+            function degToCard(value) {
+              value = parseFloat(value); if (value <= 11.25) return 'N'; value -= 11.25; 
+              var allDirections = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N']; 
+              var dIndex = parseInt(value/22.5); 
+              return allDirections[dIndex] ? allDirections[dIndex] : 'N'; 
+            }
+          h4 Wind Blowing: #{weather.current.wind_speed} mph #{degToCard(weather.current.wind_deg)}
           -
             var date = new Date(Math.round(weather.current.sunset) * 1000).toLocaleString('en-US', {timeZone: weather.timezone});
             var string = date.substr(date.lastIndexOf(",") + 1);
@@ -66,10 +73,17 @@ block content
           h1 Next 12 hours
           h4.text-secondary (Hover them for more info)
           - var counter = 0;
+          -
+            function degToCard(value) {
+              value = parseFloat(value); if (value <= 11.25) return 'N'; value -= 11.25; 
+              var allDirections = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N']; 
+              var dIndex = parseInt(value/22.5); 
+              return allDirections[dIndex] ? allDirections[dIndex] : 'N'; 
+            }
           each item in weather.hourly
             if counter < 12
               - var time = new Date(Math.round(item.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone}).substr(10, 11);
-              h2.display-6.hourly(data-bs-toggle="tooltip" data-bs-placement="right" title="Feels Like: " + item.feels_like + "°F\nHumidity: " + item.humidity + "%\nWind Speed: " + item.wind_speed + " mph\nRain: " + item.pop + "%") At #{time} it'll be #{item.temp}°F
+              h2.display-6.hourly(data-bs-toggle="tooltip" data-bs-placement="right" title="Feels Like: " + item.feels_like + "°F\nHumidity: " + item.humidity + "%\nWind Blowing: " + item.wind_speed + " mph " + degToCard(item.wind_deg) + "\nRain: " + item.pop + "%") At #{time} it'll be #{item.temp}°F
               - counter++;
         .border.border-danger.my-3.p-3.rounded.bg-darker.traffic
           h1 Traffic Conditions
