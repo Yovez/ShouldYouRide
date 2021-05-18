@@ -1,63 +1,70 @@
 extends layout
 
+mixin icon(name)
+  i(class=name)
+
+mixin icon(name, style)
+  i(class=name, style=style)
+
+mixin weatherIcon(id)
+  img(src="http://openweathermap.org/img/wn/" + id + "@2x.png")
+
+mixin tempColor(temp)
+  if temp <= 36
+    .temp-freezing
+      +icon("bi-snow2")
+      block
+  else if temp >= 36 && temp <= 50
+    .temp-cold
+      +icon("bi-thermometer-snow")
+      block
+  else if temp >= 50 && temp <= 60
+    .temp-lukewarm
+      +icon("bi-thermometer")
+      block
+  else if temp >= 60 && temp <= 80
+    .temp-warm
+      +icon("bi-thermometer-low")
+      block
+  else if temp >= 80 && temp <= 95
+    .temp-hot
+      +icon("bi-thermometer-high")
+      block
+  else if temp >= 95
+    .temp-scorching
+      +icon("bi-thermometer-sun")
+      block
+
 block content
+  -
+    function degToCard(value) {
+      value = parseFloat(value); if (value <= 11.25) return 'N'; value -= 11.25; 
+      var allDirections = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N']; 
+      var dIndex = parseInt(value/22.5); 
+      return allDirections[dIndex] ? allDirections[dIndex] : 'N'; 
+    }
   .row
-    .col-4
+    .col-sm
       .border.border-secondary.rounded.p-3.bg-dark
         h1.display-1 Should You <b>Ride</b>?
         hr
         h1.display-6.text-info Stupid question, YES!
-        p Seriously though, before you ride you should consider not only the risks, 
-          | but also the remarks to being a safe and confident rider while being on the public road. 
-          | Well this website provides a solution to riders that want to know if they should ride today 
-          | (based on weather & traffic statistics for your location).
-          br
+        p.lead.
+          Seriously though, before you ride you should consider not only the risks, 
+          but also the remarks to being a safe and confident rider while being on the public road. 
+          Well this website provides a solution to riders that want to know if they should ride today 
+          (based on weather & traffic statistics for your location).
         hr
         h2 If you have any questions, concerns, or suggestions, please 
           a(href="contactus").text-warning Click Here
         br
         a(href="https://www.buymeacoffee.com/yovez")
           img(src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza :)&emoji=🍕&slug=yovez&button_colour=40DCA5&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00")
-    if weather
-      .col-4
-        .weather.border.border-warning.rounded.p-3.bg-darker
-          h1.title Current Weather: 
-          h2.text-secondary#time
-          script.
-            var time = new Date().toLocaleString('en-US', {timeZone: weather.timezone});
-            document.getElementById('time').innerHTML = time;
-          h2.capitalize #{weather.current.weather[0].description}
-          - var temp = weather.current.temp;
-          if temp <= 36
-            h2.temp-freezing Temp: #{temp}°F (Freezing)
-          else if temp >= 36 && temp <= 50
-            h2.temp-cold Temp: #{temp}°F (Cold)
-          else if temp >= 50 && temp <= 60
-            h2.temp-lukewarm Temp: #{temp}°F (Luke-Warm)
-          else if temp >= 60 && temp <= 80
-            h2.temp-warm Temp: #{temp}°F (Warm)
-          else if temp >= 80 && temp <= 95
-            h2.temp-hot Temp: #{temp}°F (Hot)
-          else if temp >= 95
-            h2.temp-scorching Temp: #{temp}°F (Scorching)
-          h3.color-red Feels like: #{weather.current.feels_like}°F
-          h3 Humidity: #{weather.current.humidity}%
-          -
-            function degToCard(value) {
-              value = parseFloat(value); if (value <= 11.25) return 'N'; value -= 11.25; 
-              var allDirections = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N']; 
-              var dIndex = parseInt(value/22.5); 
-              return allDirections[dIndex] ? allDirections[dIndex] : 'N'; 
-            }
-          h4 Wind Blowing: #{weather.current.wind_speed} mph #{degToCard(weather.current.wind_deg)}
-          -
-            var date = new Date(Math.round(weather.current.sunset) * 1000).toLocaleString('en-US', {timeZone: weather.timezone});
-            var string = date.substr(date.lastIndexOf(",") + 1);
-          h3 The sun sets at #{string}
-        .border.border-danger.my-3.p-3.rounded.bg-darker
-          h1 Wind Chill Chart
-          h6.text-secondary A useful chart to calculate the wind chill relation to the temperature outside and how fast you're going
-          table.table.table-secondary.table-hover
+      .border.border-danger.my-3.p-3.rounded.bg-darker
+        h1 Wind Chill Chart
+        h6.text-secondary A useful chart to calculate the wind chill in relation to the temperature outside and how fast you're going
+        .overflow-auto
+          table.table.table-hover.table-dark
             thead
               th(scope="col") MPH
               each temp in [30, 35, 40, 45, 50, 55, 60]
@@ -68,23 +75,79 @@ block content
                   th(scope="row") #{speed}
                   each temp in [30, 35, 40, 45, 50, 55, 60]
                     td #{Math.round(35.74 + (0.6215 * temp) - 35.75 * (Math.pow(speed, 0.16)) + (0.4275 * temp * (Math.pow(speed, 0.16))))}°F
-      .col-4
-        .weather.border.border-info.rounded.p-3.bg-darker
-          h1 Next 12 hours
-          h4.text-secondary (Hover them for more info)
-          - var counter = 0;
+    if weather
+      .col-sm
+        .weather.border.border-warning.rounded.p-3.bg-darker
+          h1.display-5.title Weather Forecast
+          h2.display-6.capitalize 
+            if weather.current.weather[0].description === "clear sky"
+              +icon("bi-sun")
+            if weather.current.weather[0].description === "light rain"
+              +icon("bi-cloud-drizzle")
+            if weather.current.weather[0].description === "broken clouds" || weather.current.weather[0].description === "scattered clouds"
+              +icon("bi-cloud-haze")
+            if weather.current.weather[0].description === "overcast clouds"
+              +icon("bi-clouds")
+            |  #{weather.current.weather[0].description} 
+          - var temp = weather.current.temp;
+          h2.display-6
+            +tempColor(temp) #{temp}°F
+          h2.display-6
+            +tempColor(weather.current.feels_like) Feels: #{weather.current.feels_like}°F
+          h3.display-6
+            if weather.hourly[0].pop >= 0 && weather.hourly[0].pop <= 33
+              +icon("bi-cloud-drizzle")
+            if weather.hourly[0].pop >= 33 && weather.hourly[0].pop <= 66
+              +icon("bi-cloud-rain")
+            if weather.hourly[0].pop >= 66 && weather.hourly[0].pop <= 100
+              +icon("bi-cloud-rain-heavy")
+            |  Rain: #{weather.hourly[0].pop}%
+          h3.display-6 
+            if weather.current.humidity >= 0 && weather.current.humidity <= 33
+              +icon("bi-droplet")
+            if weather.current.humidity >= 33 && weather.current.humidity <= 66
+              +icon("bi-droplet-half")
+            if weather.current.humidity >= 66 && weather.current.humidity <= 100
+              +icon("bi-droplet-fill")
+            |  #{weather.current.humidity}% Humidity
+          h4.display-6 
+            +icon("bi-wind")
+            |  #{weather.current.wind_speed} mph #{degToCard(weather.current.wind_deg)}
           -
-            function degToCard(value) {
-              value = parseFloat(value); if (value <= 11.25) return 'N'; value -= 11.25; 
-              var allDirections = ['NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N']; 
-              var dIndex = parseInt(value/22.5); 
-              return allDirections[dIndex] ? allDirections[dIndex] : 'N'; 
-            }
-          each item in weather.hourly
-            if counter < 12
-              - var time = new Date(Math.round(item.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone}).substr(10, 11);
-              h2.display-6.hourly(data-bs-toggle="tooltip" data-bs-placement="right" title="Feels Like: " + item.feels_like + "°F\nHumidity: " + item.humidity + "%\nWind Blowing: " + item.wind_speed + " mph " + degToCard(item.wind_deg) + "\nRain: " + item.pop + "%") At #{time} it'll be #{item.temp}°F
-              - counter++;
+            var date = new Date(Math.round(weather.current.sunset) * 1000).toLocaleString('en-US', {timeZone: weather.timezone});
+            var string = date.substr(date.lastIndexOf(",") + 1);
+          h3.display-6 
+            +icon("bi-sunset")
+            |  Sunset: #{string}
+      .col-sm
+        .weather.border.border-info.rounded.p-3.bg-darker
+          h1.display-4 Next 12 Hours
+          - var counter = 0;
+          .overflow-auto
+            table.table.table-hover.table-dark
+              thead
+                th(scope="col") Time
+                th(scope="col") Temp
+                th(scope="col") Feels
+                th(scope="col") Rain
+                th(scope="col") Wind
+                th(scope="col") Humidity
+              tbody
+                each hour in weather.hourly
+                  if counter < 12
+                    tr
+                      - var date = new Date(Math.round(hour.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone})
+                      - var time = date.substr(10, 3).replace(":", "") + " " + date.substr(19);
+                      th(scope="row") #{time}
+                      th(scope="row") #{hour.temp}°F
+                      th(scope="row") #{hour.feels_like}°F
+                      unless hour.rain
+                        th(scope="row") 0%
+                      else
+                        th(scope="row") #{hour.rain}%
+                      th(scope="row") #{hour.wind_speed} MPH #{degToCard(hour.wind_deg)}
+                      th(scope="row") #{hour.humidity}%
+                    - counter++;
         .border.border-danger.my-3.p-3.rounded.bg-darker.traffic
           h1 Traffic Conditions
           span.text-secondary A traffic heat map for your current area
