@@ -2,33 +2,32 @@ extends layout
 
 block content
   .row
-    .col-sm
-      .border.border-secondary.rounded.p-3.bg-dark
-        h1.display-1 Should You <b>Ride</b>? 
-          script.
-            function getWeather() {
-              navigator.geolocation.getCurrentPosition((success, error) => {
-                console.log('tried to get location');
-                if (error) console.log(error);
-                if (success) {
-                  window.location.href = "/" + success.coords.latitude + "/" + success.coords.longitude;
-                }
-              });
-            }
-          a.btn.btn-success.btn-lg(role="button" onclick="getWeather()") Get Weather
-        hr
-        h1.display-6.text-info Stupid question, YES!
-        p.lead.
-          Seriously though, before you ride you should consider not only the risks, 
-          but also the remarks to being a safe and confident rider while being on the public road. 
-          Well this website provides a solution to riders that want to know if they should ride today 
-          (based on weather & traffic statistics for your location).
-        hr
-        h2 If you have any questions, concerns, or suggestions, please 
-          a.btn.btn-outline-warning(href="/contactus" role="button") Click Here
-        br
-        a(href="https://www.buymeacoffee.com/yovez")
-          img(src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza :)&emoji=🍕&slug=yovez&button_colour=40DCA5&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00")
-      include windChillChart.pug
+    .col-md.border.border-secondary.rounded.p-3.bg-dark
+      h1.display-1 Should You <b>Ride</b>? 
+        script.
+          function getWeather() {
+            navigator.geolocation.getCurrentPosition((success, error) => {
+              console.log('tried to get location');
+              if (error) console.log(error);
+              if (success) {
+                window.location.href = "/" + success.coords.latitude + "/" + success.coords.longitude;
+              }
+            });
+          }
+        a.btn.btn-success.btn-lg(role="button" onclick="getWeather()") Get Weather
+      hr
+      h1.display-6.text-info Stupid question, YES!
+      p.lead.
+        Seriously though, before you ride you should consider not only the risks, 
+        but also the remarks to being a safe and confident rider while being on the public road. 
+        Well this website provides a solution to riders that want to know if they should ride today 
+        (based on weather & traffic statistics for your location).
+      hr
+      h2 If you have any questions, concerns, or suggestions, please 
+        a.btn.btn-outline-warning(href="/contactus" role="button") Click Here
+      br
+      a(href="https://www.buymeacoffee.com/yovez")
+        img(src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza :)&emoji=🍕&slug=yovez&button_colour=40DCA5&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00")
+    include windChillChart.pug
 
 

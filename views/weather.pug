@@ -43,8 +43,8 @@ block content
             var dIndex = parseInt(value/22.5); 
             return allDirections[dIndex] ? allDirections[dIndex] : 'N'; 
         }
-    .col-sm
-        .weather.border.border-warning.rounded.p-3.bg-darker
+    .row
+        .col-sm-5.weather.border.border-warning.rounded.p-3.bg-darker
             h1.display-5.title Weather Forecast
             h2.display-6.capitalize 
                 if weather.current.weather[0].description === "clear sky"
@@ -57,10 +57,8 @@ block content
                     +icon("bi-clouds")
                 |  #{weather.current.weather[0].description} 
             - var temp = weather.current.temp;
-            h2.display-6
-                +tempColor(temp) #{temp}°F
-            h2.display-6
-                +tempColor(weather.current.feels_like) Feels: #{weather.current.feels_like}°F
+            h1.display-6
+                +tempColor(temp) #{temp}°F (Feels: #{weather.current.feels_like}°F)
             h3.display-6
                 if weather.hourly[0].pop >= 0 && weather.hourly[0].pop <= 33
                     +icon("bi-cloud-drizzle")
@@ -86,8 +84,7 @@ block content
             h3.display-6 
                 +icon("bi-sunset")
                 |  Sunset: #{string}
-    .col-sm
-        .weather.border.border-info.rounded.p-3.bg-darker
+        .col-md.weather.border.border-info.rounded.p-3.bg-darker
             h1.display-4 Next 12 Hours
             - var counter = 0;
             .overflow-auto
