@@ -7,10 +7,26 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0", crossorigin="anonymous")
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js", integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8", crossorigin="anonymous")
+    link(rel="apple-touch-icon", sizes="180x180", href="/apple-touch-icon.png")
+    link(rel="icon", type="image/png", sizes="32x32", href="/favicon-32x32.png")
+    link(rel="icon", type="image/png", sizes="16x16", href="/favicon-16x16.png")
+    link(rel="manifest", href="/site.webmanifest")
+    link(rel="mask-icon", href="/safari-pinned-tab.svg", color="#5bbad5")
+    meta(name="msapplication-TileColor", content="#da532c")
+    meta(name="theme-color", content="#ffffff")
+    //  Global site tag (gtag.js) - Google Analytics 
+    script(async, src="https://www.googletagmanager.com/gtag/js?id=G-PE4YY7GWTG")
+    script.
+      window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-PE4YY7GWTG');
+    script(data-ad-client="ca-pub-1295952628631692", async, src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+
   body.bg-darkest.text-white
-    div(class='container')
+    .container
       include header
       block content
-      script(data-name="BMC-Widget", data-cfasync="false", src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js", data-id="yovez", data-description="Support me on Buy me a coffee!", data-message="Thanks for using Should You Ride SYR! If this app has helped you, please consider buying me a pizza :) It goes a long way!", data-color="#79D6B5", data-position="Right", data-x_margin="18", data-y_margin="18")
+      script(data-name="BMC-Widget", data-cfasync="false", src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js", data-id="yovez", data-description="Support me on Buy me a coffee!", data-message="Thanks for using ShouldYouRide! If this app has helped you, please consider buying me a pizza :) It goes a long way!", data-color="#79D6B5", data-position="Right", data-x_margin="18", data-y_margin="18")
       include footer
     script(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaZwZ-QexlkIeFVJcWsCBTv35fs0VO9CY&callback=initMap", type="text/javascript")

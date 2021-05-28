@@ -1,0 +1,15 @@
+.border.border-danger.my-3.p-3.rounded.bg-darker
+    h1 Wind Chill Chart
+    h6.text-secondary A useful chart to calculate the wind chill in relation to the temperature outside and how fast you're going
+    .overflow-auto
+        table.table.table-hover.table-dark
+            thead
+                th(scope="col") MPH
+                each temp in [30, 35, 40, 45, 50, 55, 60]
+                    th(scope="col") #{temp}°F
+            tbody
+                each speed in [25, 35, 45, 50, 55, 60, 70, 80, 90, 100, 120]
+                    tr
+                        th(scope="row") #{speed}
+                        each temp in [30, 35, 40, 45, 50, 55, 60]
+                            td #{Math.round(35.74 + (0.6215 * temp) - 35.75 * (Math.pow(speed, 0.16)) + (0.4275 * temp * (Math.pow(speed, 0.16))))}°F
