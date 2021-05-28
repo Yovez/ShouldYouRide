@@ -54,7 +54,7 @@ router.get('/:lat/:lon', (req, res) => {
 router.get('/contactus', (req, res) => {
   async.series([
     () => {
-      //return res.render('contactus');
+      return res.render('contactus');
     }
   ]);
 });
