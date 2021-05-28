@@ -1,15 +1,34 @@
-header.p-3
-  .container
-      ul.nav.justify-content-center.col-12.col-lg-auto.me-lg-auto.mb-md-0
-        li.px-4
-          h1.display-6
-            a.nav-link.text-white(href="/") Home
-        li.px-4
-          h1.display-6
-            a.nav-link.text-white(href="#") FAQs
-        li.px-4
-          h1.display-6
-            a.nav-link.text-white(href="#") About
-        li.px-4
-          h1.display-6
-            a.nav-link.text-white(href="/contactus") Contact Us
+.row
+  header.p-3
+    nav.navbar.navbar-expand-sm
+      .container-fluid
+        img(src="../favicon-32x32.png")
+        h1.display-5.navbar-brand ShouldYouRide
+        button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation")
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarSupportedContent
+          ul.navbar-nav.justify-content-center.col-12.col-lg-auto.me-auto.mb-md-0
+            li.nav-item.px-4
+              h1.display-6
+                if page === "home"
+                  a.nav-link.active(href="/") Home
+                else
+                  a.nav-link.text-white(href="/") Home
+            li.nav-item.px-4
+              h1.display-6
+                if page === "faqs"
+                  a.nav-link.active(href="#") FAQs
+                else
+                  a.nav-link.text-white(href="#") FAQs
+            li.nav-item.px-4
+              h1.display-6
+                if page === "about"
+                  a.nav-link.active(href="#") About
+                else
+                  a.nav-link.text-white(href="#") About
+            li.nav-item.px-4
+              h1.display-6
+                if page === "contactus"
+                  a.nav-link.active(href="/contactus") Contact Us
+                else
+                  a.nav-link.text-white(href="/contactus") Contact Us

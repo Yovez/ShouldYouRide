@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
   async.series(
     [
       () => {
-        return res.render('index');
+        return res.render('index', {page: "home"});
       }
     ]
   );
@@ -54,7 +54,7 @@ router.get('/:lat/:lon', (req, res) => {
 router.get('/contactus', (req, res) => {
   async.series([
     () => {
-      return res.render('contactus');
+      return res.render('contactus', {page: "contactus"});
     }
   ]);
 });
