@@ -2,6 +2,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
 }
 
 #map {
@@ -26,6 +27,7 @@ body {
 
 .weather {
   text-transform: capitalize;
+  font-family: monospace !important;
   margin: 5px;
   padding: 10px;
 }
