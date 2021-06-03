@@ -8,95 +8,100 @@ block content
             var dIndex = parseInt(value/22.5); 
             return allDirections[dIndex] ? allDirections[dIndex] : 'N'; 
         }
-    .row
-        .col-sm-auto.weather.border.border-warning.rounded.p-3.bg-darker
-            h1.display-5.title Weather Forecast
-            h2.display-6.capitalize 
-                if weather.current.weather[0].description === "clear sky"
-                    +icon("bi-sun")
-                else if weather.current.weather[0].description === "light rain"
-                    +icon("bi-cloud-drizzle")
-                else if weather.current.weather[0].description === "broken clouds" || weather.current.weather[0].description === "scattered clouds"
-                    +icon("bi-cloud-haze")
-                else if weather.current.weather[0].description === "overcast clouds"
-                    +icon("bi-clouds")
-                |  #{weather.current.weather[0].description} 
-            - var temp = weather.current.temp;
-            h1.display-6
-                +tempColor(temp)  #{temp}°F (Feels: #{weather.current.feels_like}°F)
-            h3.display-6
-                if weather.hourly[0].pop >= 0 && weather.hourly[0].pop <= 33
-                    +icon("bi-cloud-drizzle")
-                else if weather.hourly[0].pop >= 33 && weather.hourly[0].pop <= 66
-                    +icon("bi-cloud-rain")
-                else if weather.hourly[0].pop >= 66 && weather.hourly[0].pop <= 100
-                    +icon("bi-cloud-rain-heavy")
-                |  Rain: #{weather.hourly[0].pop}%
-            h3.display-6 
-                if weather.current.humidity >= 0 && weather.current.humidity <= 33
-                    +icon("bi-droplet")
-                else if weather.current.humidity >= 33 && weather.current.humidity <= 66
-                    +icon("bi-droplet-half")
-                else if weather.current.humidity >= 66 && weather.current.humidity <= 100
-                    +icon("bi-droplet-fill")
-                |  #{weather.current.humidity}% Humidity
-            h4.display-6 
-                +icon("bi-wind")
-                |  #{weather.current.wind_speed} mph #{degToCard(weather.current.wind_deg)}
-            -
-                var date = new Date(Math.round(weather.current.sunset) * 1000).toLocaleString('en-US', {timeZone: weather.timezone});
-                var string = date.substr(date.lastIndexOf(",") + 1);
-            h3.display-6 
-                +icon("bi-sunset")
-                |  Sunset: #{string}
-        .col-sm.weather.border.border-info.rounded.p-3.bg-darker
-            h1.display-4 Next 12 Hours
-            - var counter = 0;
-            .overflow-auto
-                table.table.table-hover.table-dark
-                    thead
-                        th(scope="col") Time
-                        th(scope="col") Temp
-                        th(scope="col") Rain
-                        th(scope="col") Wind
-                        th(scope="col") Humidity
-                    tbody
-                        each hour in weather.hourly
-                            if counter < 12
-                                tr
-                                    - var time = new Date(Math.round(hour.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone, timeStyle: "short"});
-                                    th(scope="row") #{time}
-                                    th(scope="row") #{hour.temp}°F
-                                    unless hour.rain
-                                        th(scope="row") 0%
-                                    else
-                                        th(scope="row") #{hour.rain}%
-                                    th(scope="row") #{hour.wind_speed} MPH #{degToCard(hour.wind_deg)}
-                                    th(scope="row") #{hour.humidity}%
-                                - counter++;
-        .border.border-danger.my-3.p-3.rounded.bg-darker.traffic
-            h1 Traffic Conditions
-            span.text-secondary A traffic heat map for your current area
-            br
-            br
-            #map
-            - var lat = weather.lat;
-            - var lon = weather.lon;
-            script.
-                function initMap() {
-                    const map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 13,
-                        center: { lat: #{lat}, lng: #{lon} },
-                        mapTypeControl: true,
-                        mapTypeControlOptions: {
-                            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
-                        },
-                        streetViewControl: true,
-                        streetViewControlOptions: {
-                            position: google.maps.ControlPosition.LEFT_BOTTOM,
-                        }
-                    });
-                    const trafficLayer = new google.maps.TrafficLayer();
-                    trafficLayer.setMap(map);
-                }
-    include windChillChart.pug
+    if error
+        .alert.alert-danger(role="alert") #{error}
+    else
+        .row
+            .col-sm-auto.weather.border.border-warning.rounded.p-3.bg-darker
+                h1.display-5.title Weather Forecast
+                h2.display-6.capitalize 
+                    if weather.current.weather[0].description === "clear sky"
+                        +icon("bi-sun")
+                    else if weather.current.weather[0].description === "light rain"
+                        +icon("bi-cloud-drizzle")
+                    else if weather.current.weather[0].description === "broken clouds" || weather.current.weather[0].description === "scattered clouds"
+                        +icon("bi-cloud-haze")
+                    else if weather.current.weather[0].description === "overcast clouds"
+                        +icon("bi-clouds")
+                    else if weather.current.weather[0].description === "heavy intensity rain"
+                        +icon("bi-cloud-rain-heavy")
+                    |  #{weather.current.weather[0].description} 
+                - var temp = weather.current.temp;
+                h1.display-6
+                    +tempColor(temp)  #{temp}°F (Feels: #{weather.current.feels_like}°F)
+                h3.display-6
+                    if weather.hourly[0].pop >= 0 && weather.hourly[0].pop <= 33
+                        +icon("bi-cloud-drizzle")
+                    else if weather.hourly[0].pop >= 33 && weather.hourly[0].pop <= 66
+                        +icon("bi-cloud-rain")
+                    else if weather.hourly[0].pop >= 66 && weather.hourly[0].pop <= 100
+                        +icon("bi-cloud-rain-heavy")
+                    |  Rain: #{weather.hourly[0].pop}%
+                h3.display-6 
+                    if weather.current.humidity >= 0 && weather.current.humidity <= 33
+                        +icon("bi-droplet")
+                    else if weather.current.humidity >= 33 && weather.current.humidity <= 66
+                        +icon("bi-droplet-half")
+                    else if weather.current.humidity >= 66 && weather.current.humidity <= 100
+                        +icon("bi-droplet-fill")
+                    |  #{weather.current.humidity}% Humidity
+                h4.display-6 
+                    +icon("bi-wind")
+                    |  #{weather.current.wind_speed} mph #{degToCard(weather.current.wind_deg)}
+                -
+                    var date = new Date(Math.round(weather.current.sunset) * 1000).toLocaleString('en-US', {timeZone: weather.timezone});
+                    var string = date.substr(date.lastIndexOf(",") + 1);
+                h3.display-6 
+                    +icon("bi-sunset")
+                    |  Sunset: #{string}
+            .col-sm.weather.border.border-info.rounded.p-3.bg-darker
+                h1.display-4 Next 12 Hours
+                - var counter = 0;
+                .overflow-auto
+                    table.table.table-hover.table-dark
+                        thead
+                            th(scope="col") Time
+                            th(scope="col") Temp
+                            th(scope="col") Rain
+                            th(scope="col") Wind
+                            th(scope="col") Humidity
+                        tbody
+                            each hour in weather.hourly
+                                if counter < 12
+                                    tr
+                                        - var time = new Date(Math.round(hour.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone, timeStyle: "short"});
+                                        th(scope="row") #{time}
+                                        th(scope="row") #{hour.temp}°F
+                                        unless hour.rain
+                                            th(scope="row") 0%
+                                        else
+                                            th(scope="row") #{hour.rain}%
+                                        th(scope="row") #{hour.wind_speed} MPH #{degToCard(hour.wind_deg)}
+                                        th(scope="row") #{hour.humidity}%
+                                    - counter++;
+            .border.border-danger.my-3.p-3.rounded.bg-darker.traffic
+                h1 Traffic Conditions
+                span.text-secondary A traffic heat map for your current area
+                br
+                br
+                #map
+                - var lat = weather.lat;
+                - var lon = weather.lon;
+                script.
+                    function initMap() {
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 13,
+                            center: { lat: #{lat}, lng: #{lon} },
+                            mapTypeControl: true,
+                            mapTypeControlOptions: {
+                                style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+                            },
+                            streetViewControl: true,
+                            streetViewControlOptions: {
+                                position: google.maps.ControlPosition.LEFT_BOTTOM,
+                            }
+                        });
+                        const trafficLayer = new google.maps.TrafficLayer();
+                        trafficLayer.setMap(map);
+                    }
+        include windChillChart.pug
