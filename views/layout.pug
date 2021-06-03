@@ -1,3 +1,38 @@
+mixin icon(name)
+    i(class=name)
+
+mixin icon(name, style)
+    i(class=name, style=style)
+
+mixin weatherIcon(id)
+    img(src="http://openweathermap.org/img/wn/" + id + "@2x.png")
+
+mixin tempColor(temp)
+    if temp <= 36
+        .temp-freezing
+            +icon("bi-snow2")
+            block
+    else if temp >= 36 && temp <= 50
+        .temp-cold
+            +icon("bi-thermometer-snow")
+            block
+    else if temp >= 50 && temp <= 60
+        .temp-lukewarm
+            +icon("bi-thermometer")
+            block
+    else if temp >= 60 && temp <= 80
+        .temp-warm
+            +icon("bi-thermometer-low")
+            block
+    else if temp >= 80 && temp <= 95
+        .temp-hot
+            +icon("bi-thermometer-high")
+            block
+    else if temp >= 95
+        .temp-scorching
+            +icon("bi-thermometer-sun")
+            block
+
 doctype html
 html(lang='en')
   block head

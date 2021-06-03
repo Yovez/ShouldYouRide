@@ -3,13 +3,14 @@ var router = express.Router();
 var fetch = require('node-fetch');
 var async = require('async');
 var fs = require('fs');
+const { body, validationResult } = require('express-validator');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   async.series(
     [
       () => {
-        return res.render('index', {page: "home"});
+        return res.render('index', { page: "home" });
       }
     ]
   );
@@ -54,9 +55,24 @@ router.get('/:lat/:lon', (req, res) => {
 router.get('/contactus', (req, res) => {
   async.series([
     () => {
-      return res.render('contactus', {page: "contactus"});
+      return res.render('contactus', { page: "contactus" });
     }
   ]);
+});
+
+router.post('/contactus', (req, res, next) => {
+  body('emailInput').trim().isEmail().withMessage("Email is cannot be left empty.").escape(),
+    body('feedbackInput').isLength({ min: 10 }).withMessage("Feedback must be at least 10 characters long.").escape(),
+
+    (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        // There are errors
+        res.render('contactus', { page: "contactus", errors: errors.array() });
+      } else {
+        res.render('contactus', { page: "contactus", success: true });
+      }
+    }
 });
 
 module.exports = router;
