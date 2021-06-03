@@ -30,13 +30,14 @@ block content
                 h1.display-6
                     +tempColor(temp)  #{temp}°F (Feels: #{weather.current.feels_like}°F)
                 h3.display-6
-                    if weather.hourly[0].pop >= 0 && weather.hourly[0].pop <= 33
+                    - var pop = weather.hourly[0].pop * 100;
+                    if pop * 100 >= 0 && pop <= 33
                         +icon("bi-cloud-drizzle")
-                    else if weather.hourly[0].pop >= 33 && weather.hourly[0].pop <= 66
+                    else if pop >= 33 && pop <= 66
                         +icon("bi-cloud-rain")
-                    else if weather.hourly[0].pop >= 66 && weather.hourly[0].pop <= 100
+                    else if pop >= 66 && pop <= 100
                         +icon("bi-cloud-rain-heavy")
-                    |  Rain: #{weather.hourly[0].pop}%
+                    |  Rain: #{pop}%
                 h3.display-6 
                     if weather.current.humidity >= 0 && weather.current.humidity <= 33
                         +icon("bi-droplet")
@@ -72,10 +73,7 @@ block content
                                         - var time = new Date(Math.round(hour.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone, timeStyle: "short"});
                                         th(scope="row") #{time}
                                         th(scope="row") #{hour.temp}°F
-                                        unless hour.rain
-                                            th(scope="row") 0%
-                                        else
-                                            th(scope="row") #{hour.rain}%
+                                        th(scope="row") #{hour.pop * 100}%
                                         th(scope="row") #{hour.wind_speed} MPH #{degToCard(hour.wind_deg)}
                                         th(scope="row") #{hour.humidity}%
                                     - counter++;
