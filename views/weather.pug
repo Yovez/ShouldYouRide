@@ -68,7 +68,9 @@ block content
                             th(scope="col") Humidity
                         tbody
                             each hour in weather.hourly
-                                if counter < 12
+                                if counter === 0
+                                    - counter++;
+                                else if counter < 13
                                     tr
                                         - var time = new Date(Math.round(hour.dt) * 1000).toLocaleString('en-US', {timeZone: weather.timezone, timeStyle: "short"});
                                         th(scope="row") #{time}
