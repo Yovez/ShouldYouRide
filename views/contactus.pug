@@ -18,18 +18,20 @@ block content
       .border.border-secondary.rounded.p-3.bg-dark
         h1.display-1 Feedback
         hr
-        if errors
-          each error in errors
-            .alert.alert-danger(role="alert") #{error.msg}
         if success && success === true
           .alert.alert-success(role="alert") Thanks for the feedback! We will review it and get back to you if applicable!
         else
           form(method="POST" action="")
             .mb-3
               label(for="emailInput").form-label Email Address
-              input(name="email" type="email" aria-describedby="emailHelp").form-control#emailInput
+              input(name="email" type="email" aria-describedby="emailHelp" value=email).form-control#emailInput
               .form-text#emailHelp We'll never share your email with anyone else.
+              if errors && errors.email
+                label.text-danger #{errors.email.msg}
             .mb-3
               label(for="feedbackInput").form-label Suggestions, ideas, concerns, on what we can improve on
-              textarea(name="feedback" rows="10" cols="30").form-control#feedbackInput
+              textarea(name="feedback" rows="10" cols="30").form-control#feedbackInput #{feedback}
+              if errors && errors.feedback
+                label.text-danger #{errors.feedback.msg}
+                br
             button(type="submit").btn.btn-success.btn-lg Submit Feedback
