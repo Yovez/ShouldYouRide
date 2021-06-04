@@ -2,10 +2,12 @@
   header.p-3
     nav.navbar.navbar-expand-sm
       .container-fluid
-        img(src="https://should-you-ride.herokuapp.com/favicon-32x32.png")
-        h1.display-5.navbar-brand= " Should You Ride?"
+        a(href="https://should-you-ride.herokuapp.com" style="text-decoration: none; color: white; font-size: 24px")
+          img(src="https://should-you-ride.herokuapp.com/favicon-32x32.png")
+          |  Should You Ride?
         button.navbar-toggler(type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle Navigation")
-          span.navbar-toggler-icon
+          .navbarIcon(style="color: white")
+            +icon("bi-list")
         .collapse.navbar-collapse#navbarSupportedContent
           ul.navbar-nav.justify-content-center.col-12.col-lg-auto.me-auto.mb-md-0
             li.nav-item.px-4
