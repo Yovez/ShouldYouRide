@@ -30,21 +30,10 @@ block content
                 h1.display-6
                     +tempColor(temp)  #{temp}°F (Feels: #{weather.current.feels_like}°F)
                 h3.display-6
-                    - var pop = weather.hourly[0].pop * 100;
-                    if pop * 100 >= 0 && pop <= 33
-                        +icon("bi-cloud-drizzle")
-                    else if pop >= 33 && pop <= 66
-                        +icon("bi-cloud-rain")
-                    else if pop >= 66 && pop <= 100
-                        +icon("bi-cloud-rain-heavy")
-                    |  Rain: #{pop}%
+                    +icon("bi-cloud-rain")
+                    |  Rain: #{weather.hourly[0].pop * 100}%
                 h3.display-6 
-                    if weather.current.humidity >= 0 && weather.current.humidity <= 33
-                        +icon("bi-droplet")
-                    else if weather.current.humidity >= 33 && weather.current.humidity <= 66
-                        +icon("bi-droplet-half")
-                    else if weather.current.humidity >= 66 && weather.current.humidity <= 100
-                        +icon("bi-droplet-fill")
+                    +icon("bi-moisture")
                     |  #{weather.current.humidity}% Humidity
                 h4.display-6 
                     +icon("bi-wind")
