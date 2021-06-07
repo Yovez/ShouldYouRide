@@ -13,7 +13,7 @@ block content
     else
         .row
             .col-sm-auto.weather.border.border-warning.rounded.p-3.bg-darker
-                h1.display-5.title Weather Forecast
+                h1.display-5.title.animate__animated.animate__bounce Weather Forecast
                 h2.display-6.capitalize 
                     if weather.current.weather[0].description === "clear sky"
                         +icon("bi-sun")
