@@ -34,4 +34,7 @@ block content
               if errors && errors.feedback
                 label.text-danger #{errors.feedback.msg}
                 br
+              if sendMailFail
+                label.text-danger #{sendMailFail}
+                br
             button(type="submit").btn.btn-success.btn-lg Submit Feedback

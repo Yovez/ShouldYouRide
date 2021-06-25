@@ -9,8 +9,29 @@ body {
   height: 400px;
 }
 
-.capitalize {
+.capitalize, .nav-text, .nav-header {
   text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.nav-header {
+  text-decoration: none;
+  color: white;
+  font-size: 32px !important;
+}
+
+@media (max-width: 768px) {
+  .nav-collapse {
+    visibility: visible;
+  }
+}
+.nav-text {
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
 }
 
 .bg-darkest {

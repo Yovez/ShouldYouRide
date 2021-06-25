@@ -12,8 +12,8 @@ block content
         .alert.alert-danger(role="alert") #{error}
     else
         .row
-            .col-sm-auto.weather.border.border-warning.rounded.p-3.bg-darker
-                h1.display-5.title.animate__animated.animate__bounce Weather Forecast
+            .col-sm-auto.weather.border.border-warning.rounded.p-3.bg-darker.animate__animated.animate__backInLeft
+                h1.display-5.title Weather Forecast
                 h2.display-6.capitalize 
                     if weather.current.weather[0].description === "clear sky"
                         +icon("bi-sun")
@@ -44,7 +44,7 @@ block content
                 h3.display-6 
                     +icon("bi-sunset")
                     |  Sunset: #{string}
-            .col-sm.weather.border.border-info.rounded.p-3.bg-darker
+            .col-sm.weather.border.border-info.rounded.p-3.bg-darker.animate__animated.animate__backInRight
                 h1.display-4 Next 12 Hours
                 - var counter = 0;
                 .overflow-auto
