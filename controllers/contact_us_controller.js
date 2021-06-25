@@ -16,7 +16,7 @@ exports.contactUs_get = (req, res, next) => {
 
 exports.contactUs_post = [
     body('email').trim().isEmail().withMessage("Email cannot be empty.").trim(),
-    body('feedback').not().isLength({ min: 10 }).withMessage("Feedback must be at least 10 characters long.").trim().escape(),
+    body('feedback').isLength({ min: 10 }).withMessage("Feedback must be at least 10 characters long.").trim().escape(),
 
     (req, res, next) => {
         const errors = validationResult(req);
