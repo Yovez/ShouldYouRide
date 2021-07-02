@@ -43,7 +43,7 @@ block content
                             if counter === 0
                                 - counter++;
                             else if counter < 13
-                                - var time = new Date(Math.round(hour.time_epoch) * 1000).toLocaleString('en-US', {timeZone: weather.timezone, timeStyle: "short"});
+                                - var time = new Date(Math.round(hour.time_epoch) * 1000).toLocaleString('en-US', {timeZone: weather.location.tz_id, timeStyle: "short"});
                                 button.btn.btn-disabled(type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rain: " + hour.chance_of_rain + "%\nWind: " + hour.wind_mph + " mph " + hour.wind_dir + "\nHumidity: " + hour.humidity + "%").px-3
                                     .fs-6 #{time}
                                     img(src=hour.condition.icon)
