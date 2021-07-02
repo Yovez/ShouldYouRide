@@ -51,16 +51,8 @@ body {
 }
 
 .weather {
-  .title {
-    color: lightblue;
-  }
-
   h1 {
     color: green;
-  }
-
-  .hourly {
-    font-size: 24px;
   }
 
   @mixin define-temp($name, $color) {
@@ -80,4 +72,8 @@ body {
   font-family: monospace !important;
   margin: 5px;
   padding: 10px;
+}
+.weather-box {
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 }

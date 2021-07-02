@@ -7,7 +7,7 @@ exports.weather_get = (req, res, next) => {
             (callback) => {
                 var lat = req.params.lat;
                 var lon = req.params.lon;
-                let url = 'http://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=f0e9be06b2eace17712b103c03cdc6d4';
+                let url = "https://api.weatherapi.com/v1/forecast.json?key=88472bbc0970485fba022616210207&q=" + lat + "," + lon + "&days=1&aqi=no&alerts=yes"
                 try {
                     fetch(url)
                         .then(res => res.json())

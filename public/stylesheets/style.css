@@ -52,14 +52,8 @@ body {
   margin: 5px;
   padding: 10px;
 }
-.weather .title {
-  color: lightblue;
-}
 .weather h1 {
   color: green;
-}
-.weather .hourly {
-  font-size: 24px;
 }
 .weather .temp-freezing {
   color: aqua;
@@ -78,6 +72,11 @@ body {
 }
 .weather .temp-scorching {
   color: darkred;
+}
+
+.weather-box {
+  background: #22c1c3;
+  background: linear-gradient(0deg, #22c1c3 0%, #fdbb2d 100%);
 }
 
 /*# sourceMappingURL=style.css.map */
