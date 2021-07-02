@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  .row
+  .row.text-white
     .col-sm-auto.border.border-secondary.rounded.p-3.bg-dark
       h1.display-1 Should You <b>Ride</b>? 
         script.
@@ -14,7 +14,7 @@ block content
               }
             });
           }
-        a.btn.btn-success.btn-lg(role="button" onclick="getWeather()") Get Weather
+        a.btn.btn-success(role="button" onclick="getWeather()" style="font-size: 2rem !important; padding: .5rem 2rem") Get Weather
       hr
       h1.display-6.text-info#about Stupid question, YES!
       p.lead.

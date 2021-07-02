@@ -11,11 +11,32 @@ block content
     if error
         .alert.alert-danger(role="alert") #{error}
     else
-        .row
+        .row.text-white
             if weather.alerts.alert[0]
+                - var alertCounter = 0;
+                each alert in weather.alerts.alert
+                    .modal.text-dark(id="alertModal-" + alertCounter tabindex="-1" aria-labelledby="alertModalLabel-" + alertCounter aria-hidden="true")
+                        .modal-dialog
+                            .modal-content
+                                .modal-header
+                                    .modal-title(id="alertModalLabel-" + alertCounter) #{alert.event}
+                                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                                .modal-body
+                                    .fs-4 #{alert.note}
+                                    hr
+                                    .fs-6 #{alert.desc}
+                                .modal-footer
+                                    button.btn.btn-primary(type="button" data-bs-dismiss="modal") Close
+                    - alertCounter++;
                 .col-sm-auto.mx-auto.justify-content-center.animate__animated.animate__backInDown
+                    - alertCounter = 0;
                     each alert in weather.alerts.alert
-                        .alert.alert-danger(role="alert") #{alert.headline}
+                        .alert.alert-danger.alert-dismissible.fade.show(role="alert") 
+                            | #{alert.severity} #{alert.msgtype}: #{alert.headline}
+                            button.btn-close(type="button" data-bs-dismiss="alert" aria-label="Close")
+                            br
+                            button.btn.btn-warning(type="button" data-bs-toggle="modal" data-bs-target="#alertModal-" + alertCounter) Click for more Information
+                        - alertCounter++;
             .col-sm-auto.weather.weather-box.border.border-warning.rounded.p-3.bg-darker.animate__animated.animate__backInLeft
                 h1.display-5 Weather Forecast for #{weather.location.name.replace("Heights", "")}
                 h2.display-6.capitalize
