@@ -7,7 +7,7 @@ exports.weather_get = (req, res, next) => {
             (callback) => {
                 var lat = req.params.lat;
                 var lon = req.params.lon;
-                let url = "https://api.weatherapi.com/v1/forecast.json?key=88472bbc0970485fba022616210207&q=" + lat + "," + lon + "&days=1&aqi=no&alerts=yes"
+                let url = "https://api.weatherapi.com/v1/forecast.json?key=88472bbc0970485fba022616210207&q=" + lat + "," + lon + "&days=2&aqi=no&alerts=yes"
                 try {
                     fetch(url)
                         .then(res => res.json())

@@ -59,17 +59,30 @@ block content
                     |  Sunset: #{weather.forecast.forecastday[0].astro.sunset}
                 .pt-3
                     - var counter = 0;
+                    - var extraHours = 0;
                     .overflow-auto.d-flex.align-items-start
                         each hour in weather.forecast.forecastday[0].hour
-                            if counter === 0
+                            - var forecastTime = new Date(Math.round(hour.time_epoch) * 1000);
+                            if counter <= 12 && new Date().getHours() <= forecastTime.getHours()
+                                if forecastTime.getHours() == 23
+                                    - extraHours = counter;
+                                else
+                                    - var time = forecastTime.toLocaleString('en-US', {timeZone: weather.location.tz_id, timeStyle: "short"});
+                                    button.btn.btn-disabled(type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rain: " + hour.chance_of_rain + "%\nWind: " + hour.wind_mph + " mph " + hour.wind_dir + "\nHumidity: " + hour.humidity + "%").px-3
+                                        span #{time}
+                                        img(src=hour.condition.icon)
+                                        .fs-6 #{hour.temp_f}°F
                                 - counter++;
-                            else if counter < 13
-                                - var time = new Date(Math.round(hour.time_epoch) * 1000).toLocaleString('en-US', {timeZone: weather.location.tz_id, timeStyle: "short"});
-                                button.btn.btn-disabled(type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rain: " + hour.chance_of_rain + "%\nWind: " + hour.wind_mph + " mph " + hour.wind_dir + "\nHumidity: " + hour.humidity + "%").px-3
-                                    .fs-6 #{time}
-                                    img(src=hour.condition.icon)
-                                    .fs-6 #{hour.temp_f}°F
-                                - counter++;
+                        - var xCounter = extraHours;
+                        each xHour in weather.forecast.forecastday[1].hour
+                            if extraHours > 0 && xCounter < 12
+                                - var forecastTime = new Date(Math.round(xHour.time_epoch) * 1000);
+                                - var time = forecastTime.toLocaleString('en-US', {timeZone: weather.location.tz_id, timeStyle: "short"});
+                                button.btn.btn-disabled(type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rain: " + xHour.chance_of_rain + "%\nWind: " + xHour.wind_mph + " mph " + xHour.wind_dir + "\nHumidity: " + xHour.humidity + "%").px-3
+                                    span #{time}
+                                    img(src=xHour.condition.icon)
+                                    .fs-6 #{xHour.temp_f}°F
+                                - xCounter++;
             .border.border-danger.my-3.p-3.rounded.bg-darker.traffic
                 h1 Traffic Conditions
                 span.text-secondary A traffic heat map for your current area

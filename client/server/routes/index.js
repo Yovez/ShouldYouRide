@@ -9,4 +9,8 @@ router.get('/', function (req, res, next) {
 
 router.get('/:lat/:lon', weatherController.weather_get);
 
+router.get('/about', function (req, res, next) {
+  res.render('about', { page: "about" });
+});
+
 module.exports = router;

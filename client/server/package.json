@@ -31,9 +31,12 @@
     "zipcodes": "^8.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.3.1",
     "babel-plugin-transform-jsx-css-modules": "^1.0.0",
     "babel-plugin-transform-react-pug": "^7.0.1",
     "nodemon": "^2.0.7",
-    "pug-as-jsx-loader": "^1.0.88"
+    "postcss": "^8.3.5",
+    "pug-as-jsx-loader": "^1.0.88",
+    "tailwindcss": "^2.2.4"
   }
 }

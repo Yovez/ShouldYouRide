@@ -21,22 +21,5 @@
               a.nav-text(href="https://should-you-ride.herokuapp.com/about") About
           li.nav-item
             .px-4
-              if user
-                a.nav-text.dropdown-toggle#navbarDropdown(href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false") #{user.username}
-                ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                  li
-                    a.dropdown-item(href="https://should-you-ride.herokuapp.com/settings") Settings
-                  li
-                    hr.dropdown-divider
-                  li
-                    a.dropdown-item(href="https://should-you-ride.herokuapp.com/logout") Logout
-              else
-                .nav-text
-                  if page === "register"
-                    a.active(href="https://should-you-ride.herokuapp.com/register") Register
-                  else
-                    a.nav-text(href="https://should-you-ride.herokuapp.com/register") Register
-          li.nav-item
-            .px-4
               a(href="https://www.buymeacoffee.com/yovez")
                 img(src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza :)&emoji=🍕&slug=yovez&button_colour=40DCA5&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00")
