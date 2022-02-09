@@ -8,8 +8,6 @@ var mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var contactUsRouter = require('./routes/contactUs');
 
-var tailwindcss = require('tailwindcss');
-
 var app = express();
 
 // view engine setup
@@ -20,7 +18,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "../", 'build')));
+app.use(express.static(path.join(__dirname, "../", 'public')));
 
 app.use('/', indexRouter);
 app.use('/', contactUsRouter);
