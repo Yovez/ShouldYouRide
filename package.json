@@ -20,7 +20,7 @@
     "express": "~4.16.1",
     "greenlock-express": "^4.0.3",
     "http-errors": "~1.6.3",
-    "mongoose": "^5.12.7",
+    "mongoose": "^6.13.6",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.1",
     "node-navigator": "^1.0.1",
